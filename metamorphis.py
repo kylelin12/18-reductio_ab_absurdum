@@ -1,26 +1,29 @@
 story_raw = open("metamorphis.txt", "r").read()
 
-story = story_raw.split()
+story_list = story_raw.split()
+
+story = [x.strip('";./()-_?,').lower() for x in story_list]
 
 # Frequency of a single word
 def finder(word):
-    count = len([x for x in story if x == word])
-    #print "Finding word:",word,"Count:",count
-    return count
+    word = word.lower()
+    count = [1 for x in story if x == word]
+    return reduce((lambda a,b: a + b), count)
 
-print "Word: ", "One", "Count: ", finder("One")
+print "Word: ", "One", "Count: ", finder("One") # 59
    
 # Frequency of 2 words
 def phrase_finder(phrase):
+    phrase = phrase.lower()
     phrase = phrase.split()
     pairs = [[story[i], story[i+1]] for i in range(0, len(story) - 1)]
-    count = len([x for x in pairs if x == phrase])
-    return count
+    count = [1 for x in pairs if x == phrase]
+    return reduce((lambda a, b: a + b), count)
 
-print "Phrase: ", "help produce", "Count: ", phrase_finder('help produce')
+print "Phrase: ", "but gregor", "Count: ", phrase_finder('but gregor') # 5
 
 def most_freq():
     freq = [ [x,finder(x)] for x in story]
     return reduce(lambda a,b: a if a[1] > b[1] else b, freq)
 
-print most_freq()
+print "[Most frequently appearing word, frequency]",most_freq() # the - 1330
