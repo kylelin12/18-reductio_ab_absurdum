@@ -25,7 +25,7 @@ print "Phrase: ", "but gregor", "Count: ", phrase_finder('but gregor') # 5
 def group_finder(group):
     return reduce((lambda a, b: a + b), [finder(x) for x in group])
 
-print "Group: ['but', 'gregor']", "Total Count: ", group_finder['but', 'gregor']
+print "Group: ['but', 'gregor']", "Total Count: ", group_finder(['but', 'gregor']) # 372
 
 def most_freq():
     freq = [ [x,finder(x)] for x in story]
